@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0A0A0A" />
+  <meta name="description" content="LCR Engenharia - Gestão de obras de alto padrão. Custo auditado, prazo em contrato e livro aberto do canteiro à entrega." />
+  <title>LCR Engenharia - Gestão de Obras de Alto Padrão</title>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:title" content="LCR Engenharia - Gestão de Obras de Alto Padrão" />
+  <meta property="og:description" content="Custo auditado, prazo em contrato e livro aberto do canteiro à entrega." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       PALETA LCR
+    ============================================================ */
+    :root {
+      --red:          #D32027;
+      --red-dark:     #A8191F;
+      --red-light:    #E63946;
+      --red-glow:     rgba(211, 32, 39, 0.25);
+
+      --black:        #0A0A0A;
+      --graphite:     #141414;
+      --graphite-soft:#1C1C1C;
+      --gray-900:     #2A2A2A;
+      --gray-700:     #4A4A4A;
+      --gray-500:     #6B6B6B;
+      --gray-400:     #8C8C8C;
+      --gray-300:     #CFCFCF;
+      --gray-200:     #E4E4E4;
+      --gray-100:     #F4F4F4;
+      --white:        #FFFFFF;
+
+      --font-main:    'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Manrope', 'Inter', sans-serif;
+
+      --radius-btn:   2px;
+      --radius-card:  6px;
+      --transition:   0.3s ease;
+      --shadow-card:  0 2px 10px rgba(0,0,0,0.06), 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    /* ============================================================
+       RESET
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+    }
+    body {
+      font-family: var(--font-main);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--graphite);
+      background: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img, svg { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { font-family: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--red);
+      outline-offset: 3px;
+    }
+
+    /* ============================================================
+       UTILITÁRIOS
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .eyebrow {
+      font-family: var(--font-main);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--red);
+    }
+    .eyebrow--light { color: var(--red-light); }
+    .eyebrow--light::before { background: var(--red-light); }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.12;
+      color: var(--graphite);
+    }
+    .section-title .accent { color: var(--red); font-weight: 800; }
+    .section-title--light { color: var(--white); }
+
+    .section-lead {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-top: 18px;
+      max-width: 680px;
+      color: var(--gray-700);
+    }
+    .section-lead--light { color: rgba(255,255,255,0.72); }
+
+    /* Botões - com efeito shine no hover */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 17px 34px;
+      font-family: var(--font-main);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      border-radius: var(--radius-btn);
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(.2,.7,.3,1), box-shadow 0.35s ease, background 0.3s ease, color 0.3s ease;
+      text-align: center;
+      line-height: 1;
+      isolation: isolate;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      transition: left 0.65s ease;
+      z-index: -1;
+    }
+    .btn:hover::before { left: 100%; }
+    .btn:hover { transform: translateY(-3px); }
+    .btn:active { transform: translateY(-1px); }
+    .btn svg { transition: transform 0.3s ease; }
+    .btn:hover svg { transform: translateX(3px); }
+    .btn--primary {
+      background: var(--red);
+      color: var(--white);
+      box-shadow: 0 6px 20px var(--red-glow);
+    }
+    .btn--primary:hover {
+      background: var(--red-dark);
+      box-shadow: 0 14px 32px rgba(168, 25, 31, 0.5);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.35);
+    }
+    .btn--ghost:hover {
+      background: var(--white);
+      color: var(--graphite);
+      border-color: var(--white);
+    }
+    .btn--block { width: 100%; }
+
+    /* Reveal animations - base + variantes */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
+      will-change: opacity, transform;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-left { transform: translateX(-40px); }
+    .reveal-left.visible { transform: translateX(0); }
+    .reveal-right { transform: translateX(40px); }
+    .reveal-right.visible { transform: translateX(0); }
+    .reveal-scale { transform: scale(0.94); }
+    .reveal-scale.visible { transform: scale(1); }
+
+    /* Alias para compat */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       HERO LOGO (no topo do conteúdo, não é fixo)
+    ============================================================ */
+    .hero__logo {
+      display: block;
+      margin-bottom: 30px;
+    }
+    .hero__logo img {
+      height: 96px;
+      width: auto;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+    }
+    @media (max-width: 640px) {
+      .hero__logo img { height: 76px; }
+      .hero__logo { margin-bottom: 22px; }
+    }
+
+    /* ============================================================
+       HERO - imagem estática
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      color: var(--white);
+      overflow: hidden;
+      background: var(--black);
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url("assets/img/hero-house.jpeg");
+      background-size: cover;
+      background-position: 65% 78%;
+      background-repeat: no-repeat;
+    }
+    @media (max-width: 760px) {
+      .hero__bg { background-position: 62% 72%; }
+    }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(100deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.82) 38%, rgba(10,10,10,0.35) 70%, rgba(10,10,10,0.15) 100%),
+        radial-gradient(ellipse at 85% 30%, rgba(211,32,39,0.18) 0%, transparent 55%);
+    }
+    @media (max-width: 760px) {
+      .hero__overlay {
+        background:
+          linear-gradient(180deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.72) 50%, rgba(10,10,10,0.9) 100%),
+          radial-gradient(ellipse at top, rgba(211,32,39,0.18) 0%, transparent 60%);
+      }
+    }
+    .hero__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      padding: 90px 0 120px;
+      width: 100%;
+    }
+    @media (max-width: 760px) {
+      .hero { min-height: 92vh; }
+      .hero__inner { padding: 60px 0 80px; }
+    }
+    @media (max-width: 420px) {
+      .hero__inner { padding: 48px 0 68px; }
+    }
+    .hero__content { max-width: 780px; }
+    .hero__content > * {
+      opacity: 0;
+      transform: translateY(28px);
+      animation: hero-in 1s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    .hero__content > *:nth-child(1) { animation-delay: 0.10s; }
+    .hero__content > *:nth-child(2) { animation-delay: 0.26s; }
+    .hero__content > *:nth-child(3) { animation-delay: 0.42s; }
+    .hero__content > *:nth-child(4) { animation-delay: 0.58s; }
+    .hero__content > *:nth-child(5) { animation-delay: 0.74s; }
+    @keyframes hero-in {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--red-light);
+      margin-bottom: 26px;
+      padding: 8px 16px;
+      border: 1px solid rgba(211,32,39,0.4);
+      border-radius: 999px;
+      background: rgba(211,32,39,0.08);
+    }
+    .hero__dot {
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(211,32,39,0.25);
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(211,32,39,0.25); }
+      50%       { box-shadow: 0 0 0 8px rgba(211,32,39,0.05); }
+    }
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 5.2vw, 58px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.08;
+      margin-bottom: 22px;
+    }
+    @media (max-width: 420px) {
+      .hero__headline { font-size: 28px; line-height: 1.15; }
+    }
+    .hero__headline .accent { color: var(--red-light); }
+    .hero__sub {
+      font-size: clamp(15px, 1.7vw, 18px);
+      line-height: 1.65;
+      color: rgba(255,255,255,0.8);
+      max-width: 620px;
+      margin-bottom: 40px;
+    }
+    .hero__cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 480px) {
+      .hero__cta { gap: 10px; width: 100%; }
+      .hero__cta .btn { flex: 1 1 100%; padding: 16px 20px; font-size: 13px; letter-spacing: 1px; }
+    }
+    .hero__scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      animation: bounce 2.4s infinite;
+    }
+    .hero__scroll svg { width: 18px; height: 18px; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ============================================================
+       PROOF BAR
+    ============================================================ */
+    .proof {
+      background: var(--graphite);
+      padding: 48px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .proof__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    .proof__item {
+      text-align: center;
+      color: var(--white);
+    }
+    .proof__num {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .proof__num small {
+      font-size: 0.5em;
+      font-weight: 700;
+      color: var(--red-light);
+      margin-left: 2px;
+    }
+    .proof__label {
+      font-size: 11px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      font-weight: 600;
+    }
+    @media (max-width: 760px) {
+      .proof__grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    }
+
+    /* ============================================================
+       PILARES (4 cards)
+    ============================================================ */
+    .pillars {
+      padding: 110px 0;
+      background: var(--white);
+    }
+    .pillars__head { text-align: center; margin-bottom: 56px; }
+    .pillars__head .eyebrow { justify-content: center; }
+    .pillars__head .section-lead { margin: 18px auto 0; }
+    .pillars__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .pillar {
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-card);
+      padding: 32px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow: hidden;
+      transition: transform 0.45s cubic-bezier(.2,.7,.2,1), box-shadow 0.45s ease, border-color 0.35s ease;
+    }
+    .pillar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--red-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(.2,.7,.2,1);
+    }
+    .pillar:hover::before { transform: scaleX(1); }
+    .pillar:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.12);
+      border-color: var(--red);
+    }
+    .pillar__icon {
+      width: 54px;
+      height: 54px;
+      background: rgba(211,32,39,0.08);
+      border: 1px solid rgba(211,32,39,0.25);
+      border-radius: var(--radius-btn);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--red);
+      transition: transform 0.45s cubic-bezier(.2,.7,.2,1), background 0.35s ease, box-shadow 0.35s ease;
+    }
+    .pillar:hover .pillar__icon {
+      transform: rotate(-6deg) scale(1.08);
+      background: var(--red);
+      color: var(--white);
+      box-shadow: 0 10px 24px var(--red-glow);
+    }
+    .pillar__icon svg { width: 26px; height: 26px; transition: stroke 0.35s ease; }
+    .pillar__title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--graphite);
+      letter-spacing: -0.2px;
+      line-height: 1.3;
+    }
+    .pillar__text {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--gray-700);
+    }
+    @media (max-width: 960px) {
+      .pillars__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .pillars__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       CASES
+    ============================================================ */
+    .cases {
+      padding: 110px 0;
+      background: var(--white);
+    }
+    .cases__head { text-align: center; margin-bottom: 56px; }
+    .cases__head .eyebrow { justify-content: center; }
+    .cases__head .section-lead { margin: 18px auto 0; }
+    .cases__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .case-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.5s cubic-bezier(.2,.7,.2,1), box-shadow 0.45s ease, border-color 0.35s ease;
+    }
+    .case-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 32px 64px rgba(0,0,0,0.18);
+      border-color: var(--red);
+    }
+    .case-card__img {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--gray-200);
+    }
+    .case-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(.2,.7,.2,1);
+    }
+    .case-card:hover .case-card__img img {
+      transform: scale(1.06);
+    }
+    .case-card__body {
+      padding: 28px 26px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .case-card__type {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--graphite);
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+    .case-card__type span {
+      color: var(--red);
+      font-weight: 700;
+    }
+    .case-card__specs {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .case-card__specs li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 14.5px;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+    .case-card__specs li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+    .case-card__price {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-top: 6px;
+    }
+    .case-card__label {
+      font-size: 11px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      font-weight: 600;
+    }
+    .case-card__value {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--graphite);
+      letter-spacing: -0.5px;
+    }
+    .case-card__installment {
+      background: var(--gray-100);
+      border-radius: var(--radius-btn);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .case-card__inst-label {
+      font-size: 11px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--gray-700);
+      font-weight: 600;
+    }
+    .case-card__inst-value {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--red);
+      letter-spacing: -0.5px;
+    }
+    .case-card__inst-value small {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+      letter-spacing: 0;
+    }
+    .cases__note {
+      font-size: 12px;
+      color: var(--gray-500);
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+      line-height: 1.6;
+    }
+    @media (max-width: 960px) {
+      .cases__grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+    }
+
+    /* ============================================================
+       EXPERTS (Sobre com visual)
+    ============================================================ */
+    .experts {
+      padding: 110px 0;
+      background: var(--graphite);
+    }
+    .experts__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .experts__visual {
+      position: relative;
+      min-height: 440px;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(211,32,39,0.22) 0%, transparent 55%),
+        linear-gradient(135deg, var(--black) 0%, var(--graphite) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .experts__visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .experts__visual-inner {
+      position: relative;
+      z-index: 2;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      width: 100%;
+    }
+    .experts__logo img {
+      height: 92px;
+      width: auto;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+    }
+    .experts__badges {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      max-width: 360px;
+    }
+    .experts__badge {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      text-align: center;
+    }
+    .experts__badge strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+    .experts__badge span {
+      font-size: 10px;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+    }
+    .experts__copy .section-title { color: var(--white); }
+    .experts__lead {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.75);
+      margin-top: 20px;
+    }
+    .experts__lead strong { color: var(--white); font-weight: 600; }
+    .experts__bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .experts__bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.85);
+    }
+    .experts__bullet svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--red-light);
+      flex-shrink: 0;
+      margin-top: 2px;
+      fill: none;
+      stroke-width: 2;
+    }
+    .experts__cta { margin-top: 32px; }
+    @media (max-width: 960px) {
+      .experts__inner { grid-template-columns: 1fr; gap: 44px; }
+      .experts__visual { min-height: 340px; }
+      .experts__visual-inner { padding: 36px 24px; }
+    }
+
+    /* ============================================================
+       GALERIA
+    ============================================================ */
+    .gallery {
+      padding: 110px 0;
+      background: var(--white);
+    }
+    .gallery__head { text-align: center; margin-bottom: 56px; }
+    .gallery__head .eyebrow { justify-content: center; }
+    .gallery__head .section-lead { margin: 18px auto 0; }
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .gallery__item {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      background: var(--graphite);
+      cursor: pointer;
+      transition: transform 0.5s cubic-bezier(.2,.7,.2,1), box-shadow 0.45s ease;
+    }
+    .gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(.2,.7,.2,1);
+    }
+    .gallery__item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(10,10,10,0.85) 100%);
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .gallery__item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid transparent;
+      border-radius: var(--radius-card);
+      transition: border-color 0.4s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .gallery__item:hover::before { opacity: 1; }
+    .gallery__item:hover::after { border-color: var(--red); }
+    .gallery__item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.3);
+    }
+    .gallery__item:hover img { transform: scale(1.06); }
+    .gallery__item-caption {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .gallery__item:hover .gallery__item-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .gallery__item-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red-light);
+      font-weight: 700;
+    }
+    .gallery__item-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    @media (max-width: 760px) {
+      .gallery__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+    @media (max-width: 480px) {
+      .gallery__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       PROCESSO (4 etapas)
+    ============================================================ */
+    .process {
+      padding: 110px 0;
+      background: var(--gray-100);
+    }
+    .process__head { text-align: center; margin-bottom: 56px; }
+    .process__head .eyebrow { justify-content: center; }
+    .process__list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      list-style: none;
+      counter-reset: step;
+    }
+    .process__step {
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-card);
+      padding: 32px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow: hidden;
+      transition: transform 0.45s cubic-bezier(.2,.7,.2,1), border-color 0.35s ease, box-shadow 0.4s ease;
+    }
+    .process__step::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 0;
+      background: linear-gradient(180deg, transparent, rgba(211,32,39,0.04));
+      transition: height 0.5s ease;
+      pointer-events: none;
+    }
+    .process__step:hover::after { height: 100%; }
+    .process__step:hover {
+      transform: translateY(-6px);
+      border-color: var(--red);
+      box-shadow: 0 20px 44px rgba(0,0,0,0.08);
+    }
+    .process__step:hover .process__index {
+      text-shadow: 0 0 24px rgba(211,32,39,0.35);
+    }
+    .process__index {
+      transition: text-shadow 0.35s ease;
+    }
+    .process__step-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .process__index {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--red);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .process__step h3 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--graphite);
+      letter-spacing: -0.2px;
+      line-height: 1.3;
+    }
+    .process__step p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--gray-700);
+    }
+    @media (max-width: 960px) {
+      .process__list { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .process__list { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       VIABILIDADE / FORM
+    ============================================================ */
+    .viability {
+      padding: 110px 0;
+      background:
+        radial-gradient(ellipse at top right, rgba(211,32,39,0.18) 0%, transparent 50%),
+        linear-gradient(180deg, var(--black) 0%, var(--graphite) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .viability::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .viability__inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .viability__copy .section-title { color: var(--white); }
+    .viability__copy .section-lead { color: rgba(255,255,255,0.75); }
+    .viability__checks {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .viability__checks li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+    }
+    .viability__checks li::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E63946' stroke-width='2.5'><polyline points='20 6 9 17 4 12'/></svg>");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+    .viability__note {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 28px;
+      line-height: 1.6;
+    }
+
+    /* Form card */
+    .form {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .form__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .form__subtitle {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 26px;
+    }
+    .form__field { margin-bottom: 18px; }
+    .form__field label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 8px;
+    }
+    .form__field input,
+    .form__field select {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.95);
+      border: 2px solid transparent;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-main);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--graphite);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, transform 0.25s ease;
+      outline: none;
+      appearance: none;
+    }
+    .form__field input:hover,
+    .form__field select:hover {
+      background: var(--white);
+    }
+    .form__field select {
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232A2A2A' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 14px;
+      padding-right: 40px;
+    }
+    .form__field input::placeholder { color: #a7a7a7; font-weight: 400; }
+    .form__field input:focus,
+    .form__field select:focus {
+      background: var(--white);
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(211,32,39,0.18);
+    }
+    .form__field input.error,
+    .form__field select.error {
+      border-color: #e74c3c;
+      box-shadow: 0 0 0 3px rgba(231,76,60,0.15);
+    }
+    .form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .form__submit { margin-top: 8px; }
+    .form__consent {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 16px;
+      line-height: 1.55;
+    }
+    .form__feedback {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      text-align: center;
+    }
+    .form__feedback--ok {
+      background: rgba(39,174,96,0.15);
+      color: #6ee7a1;
+      border: 1px solid rgba(39,174,96,0.4);
+    }
+    @media (max-width: 960px) {
+      .viability__inner { grid-template-columns: 1fr; gap: 44px; }
+      .form { padding: 32px 24px; }
+    }
+    @media (max-width: 480px) {
+      .form__row { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      position: relative;
+      padding: 72px 0 36px;
+      background: var(--black);
+      color: rgba(255,255,255,0.6);
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .footer__grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 44px;
+      margin-bottom: 44px;
+    }
+    .footer__brand img {
+      height: 52px;
+      width: auto;
+      margin-bottom: 16px;
+    }
+    .footer__tagline {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.65;
+      max-width: 360px;
+    }
+    .footer__col h4 {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 14px;
+      letter-spacing: 0.2px;
+    }
+    .footer__col ul { display: flex; flex-direction: column; gap: 8px; }
+    .footer__col a,
+    .footer__col li {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.6);
+      transition: color var(--transition);
+    }
+    .footer__col a:hover { color: var(--red-light); }
+    .footer__bottom {
+      position: relative;
+      z-index: 1;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer__bottom small {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.3px;
+    }
+    .footer__bottom a { color: var(--red-light); font-weight: 600; }
+    @media (max-width: 760px) {
+      .footer__grid { grid-template-columns: 1fr; gap: 28px; }
+      footer { padding: 54px 0 28px; }
+      .footer__bottom { flex-direction: column; text-align: left; gap: 6px; }
+    }
+
+    /* ============================================================
+       REVISÃO MOBILE GERAL
+    ============================================================ */
+    @media (max-width: 760px) {
+      .pillars,
+      .cases,
+      .experts,
+      .gallery,
+      .process,
+      .viability {
+        padding: 72px 0;
+      }
+      .pillars__head,
+      .cases__head,
+      .gallery__head,
+      .process__head { margin-bottom: 40px; }
+      .container { padding: 0 20px; }
+      .experts__visual { min-height: 300px; }
+      .experts__logo img { height: 72px; }
+      .experts__bullets { gap: 10px; }
+      .form { padding: 28px 22px; }
+      .form__title { font-size: 18px; }
+      .viability__checks { margin-top: 22px; }
+      .footer__brand img { height: 46px; }
+    }
+    @media (max-width: 480px) {
+      .section-title { font-size: clamp(24px, 7vw, 30px); }
+      .hero__eyebrow { font-size: 10px; letter-spacing: 2.5px; padding: 7px 14px; }
+      .eyebrow { font-size: 10px; letter-spacing: 2.8px; }
+      .eyebrow::before { width: 20px; }
+      .proof { padding: 36px 0; }
+      .proof__num { font-size: 26px; }
+      .pillar { padding: 26px 22px; }
+      .case-card__body { padding: 22px 20px 24px; }
+      .case-card__type { font-size: 19px; }
+      .case-card__value,
+      .case-card__inst-value { font-size: 20px; }
+      .process__step { padding: 26px 22px; }
+    }
+
+    /* Reduz motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <header class="hero" id="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__grid" aria-hidden="true"></div>
+
+    <div class="hero__inner">
+      <div class="container hero__content">
+        <a href="#" class="hero__logo" aria-label="LCR Engenharia">
+          <img src="logo.svg" alt="LCR Engenharia" />
+        </a>
+
+        <span class="hero__eyebrow">
+          <span class="hero__dot" aria-hidden="true"></span>
+          Gestão de obras de alto padrão
+        </span>
+
+        <h1 class="hero__headline">
+          Sua obra no prazo, com <span class="accent">custo auditado</span> e livro aberto.
+        </h1>
+
+        <p class="hero__sub">
+          Engenharia, compras, mão de obra e fiscalização em um só contrato. Você acompanha cada real. A gente assume a operação.
+        </p>
+
+        <div class="hero__cta">
+          <a href="#viabilidade" class="btn btn--primary">
+            Agendar diagnóstico
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a href="#metodo" class="btn btn--ghost">Conhecer o método</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      Role para continuar
+    </div>
+  </header>
+
+  <!-- ============================================================
+       PROOF BAR
+  ============================================================ -->
+  <section class="proof">
+    <div class="container proof__grid">
+      <div class="proof__item reveal">
+        <div class="proof__num">+<span data-count="60">0</span></div>
+        <div class="proof__label">Obras entregues</div>
+      </div>
+      <div class="proof__item reveal" style="transition-delay:0.1s">
+        <div class="proof__num">+<span data-count="12">0</span><small>anos</small></div>
+        <div class="proof__label">De engenharia</div>
+      </div>
+      <div class="proof__item reveal" style="transition-delay:0.2s">
+        <div class="proof__num"><span data-count="100">0</span><small>%</small></div>
+        <div class="proof__label">Livro aberto</div>
+      </div>
+      <div class="proof__item reveal" style="transition-delay:0.3s">
+        <div class="proof__num">ART</div>
+        <div class="proof__label">CREA em toda obra</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PILARES
+  ============================================================ -->
+  <section class="pillars fade-in" id="metodo">
+    <div class="container">
+      <div class="pillars__head">
+        <p class="eyebrow">Método LCR</p>
+        <h2 class="section-title">Compromissos que você pode <span class="accent">auditar</span></h2>
+        <p class="section-lead">
+          Quatro pilares que sustentam cada obra sob nossa gestão, do primeiro orçamento à chave entregue.
+        </p>
+      </div>
+
+      <div class="pillars__grid">
+        <article class="pillar reveal">
+          <div class="pillar__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="2"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+              <line x1="9" y1="14" x2="15" y2="14"/>
+              <line x1="9" y1="17" x2="15" y2="17"/>
+            </svg>
+          </div>
+          <h3 class="pillar__title">Custo auditado</h3>
+          <p class="pillar__text">
+            Planilha global antes da assinatura. Notas fiscais em nome do proprietário. Descontos de fornecedor 100% repassados.
+          </p>
+        </article>
+
+        <article class="pillar reveal" style="transition-delay:0.12s">
+          <div class="pillar__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M8 12l3 3 5-6"/>
+            </svg>
+          </div>
+          <h3 class="pillar__title">Livro aberto semanal</h3>
+          <p class="pillar__text">
+            Relatório toda semana com fotos do canteiro, extrato de caixa e avanço físico versus financeiro, direto no seu WhatsApp.
+          </p>
+        </article>
+
+        <article class="pillar reveal" style="transition-delay:0.24s">
+          <div class="pillar__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+              <path d="M9 15l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3 class="pillar__title">Prazo em contrato</h3>
+          <p class="pillar__text">
+            Cronograma físico-financeiro vinculado ao contrato. Atraso por responsabilidade da LCR vira desconto automático na taxa.
+          </p>
+        </article>
+
+        <article class="pillar reveal" style="transition-delay:0.36s">
+          <div class="pillar__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3 class="pillar__title">Respaldo técnico</h3>
+          <p class="pillar__text">
+            ART registrada no CREA antes do início, garantia legal de 5 anos sobre estrutura e engenheiro responsável em cada etapa.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CASES
+  ============================================================ -->
+  <section class="cases fade-in" id="cases">
+    <div class="container">
+      <div class="cases__head">
+        <p class="eyebrow">Cases de gestão</p>
+        <h2 class="section-title">Obras sob gestão <span class="accent">LCR</span></h2>
+        <p class="section-lead">
+          Projetos residenciais de alto padrão entregues com custo auditado e prazo contratual.
+        </p>
+      </div>
+
+      <div class="cases__grid">
+        <article class="case-card reveal">
+          <div class="case-card__img">
+            <img loading="lazy" src="renders/WhatsApp%20Image%202026-04-15%20at%2013.12.34%20(4).jpeg" alt="Casa térrea 320 m²" />
+          </div>
+          <div class="case-card__body">
+            <h3 class="case-card__type">Casa térrea <span>320m²</span></h3>
+            <ul class="case-card__specs">
+              <li>4 suítes com closet</li>
+              <li>Área gourmet integrada</li>
+            </ul>
+            <div class="case-card__price">
+              <span class="case-card__label">Investimento total</span>
+              <span class="case-card__value">R$ 1.847.000</span>
+            </div>
+            <div class="case-card__installment">
+              <span class="case-card__inst-label">Parcelas a partir de</span>
+              <span class="case-card__inst-value">R$ 22.200<small>/mês</small></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card reveal" style="transition-delay:0.15s">
+          <div class="case-card__img">
+            <img loading="lazy" src="renders/WhatsApp%20Image%202026-04-15%20at%2013.12.35%20(24).jpeg" alt="Sobrado premium 460 m²" />
+          </div>
+          <div class="case-card__body">
+            <h3 class="case-card__type">Sobrado premium <span>460m²</span></h3>
+            <ul class="case-card__specs">
+              <li>5 suítes com closet</li>
+              <li>Piscina e área gourmet</li>
+            </ul>
+            <div class="case-card__price">
+              <span class="case-card__label">Investimento total</span>
+              <span class="case-card__value">R$ 2.612.000</span>
+            </div>
+            <div class="case-card__installment">
+              <span class="case-card__inst-label">Parcelas a partir de</span>
+              <span class="case-card__inst-value">R$ 31.400<small>/mês</small></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card reveal" style="transition-delay:0.3s">
+          <div class="case-card__img">
+            <img loading="lazy" src="renders/WhatsApp%20Image%202026-04-15%20at%2013.12.35%20(4).jpeg" alt="Reforma estrutural 240 m²" />
+          </div>
+          <div class="case-card__body">
+            <h3 class="case-card__type">Reforma estrutural <span>240m²</span></h3>
+            <ul class="case-card__specs">
+              <li>3 suítes ampliadas</li>
+              <li>Refatoração completa</li>
+            </ul>
+            <div class="case-card__price">
+              <span class="case-card__label">Investimento total</span>
+              <span class="case-card__value">R$ 795.000</span>
+            </div>
+            <div class="case-card__installment">
+              <span class="case-card__inst-label">Parcelas a partir de</span>
+              <span class="case-card__inst-value">R$ 9.500<small>/mês</small></span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="cases__note">
+        *Valores e prazos aproximados de projetos entregues pela LCR. Documentação auditada disponível sob solicitação.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EXPERTS / SOBRE
+  ============================================================ -->
+  <section class="experts fade-in" id="sobre">
+    <div class="container experts__inner">
+      <div class="experts__visual reveal reveal-left">
+        <div class="experts__visual-inner">
+          <div class="experts__logo">
+            <img src="logo.svg" alt="LCR Engenharia" />
+          </div>
+          <div class="experts__badges">
+            <div class="experts__badge">
+              <strong>+12</strong>
+              <span>Anos</span>
+            </div>
+            <div class="experts__badge">
+              <strong>+60</strong>
+              <span>Obras</span>
+            </div>
+            <div class="experts__badge">
+              <strong>CREA</strong>
+              <span>Registrada</span>
+            </div>
+            <div class="experts__badge">
+              <strong>ART</strong>
+              <span>Em toda obra</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="experts__copy reveal reveal-right" style="transition-delay:0.15s">
+        <p class="eyebrow eyebrow--light">Quem somos</p>
+        <h2 class="section-title">Garantimos <span class="accent">segurança</span></h2>
+        <p class="experts__lead">
+          A LCR é especializada em <strong>gestão de obras residenciais de alto padrão</strong>, com método, planejamento técnico e controle auditável em cada etapa.
+        </p>
+        <p class="experts__lead">
+          Mais de uma década entregando obras sob ART, contrato registrado e livro aberto - com engenheiro responsável do canteiro à chave.
+        </p>
+
+        <div class="experts__bullets">
+          <div class="experts__bullet">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>ART no CREA antes do início da obra</span>
+          </div>
+          <div class="experts__bullet">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Notas fiscais em nome do proprietário</span>
+          </div>
+          <div class="experts__bullet">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Garantia de 5 anos sobre estrutura e vedação</span>
+          </div>
+          <div class="experts__bullet">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Cláusula de compensação por atraso</span>
+          </div>
+        </div>
+
+        <div class="experts__cta">
+          <a href="#viabilidade" class="btn btn--primary">Agendar diagnóstico</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALERIA
+  ============================================================ -->
+  <section class="gallery fade-in" id="obras">
+    <div class="container">
+      <div class="gallery__head">
+        <p class="eyebrow">Portfólio</p>
+        <h2 class="section-title">Obras sob nossa <span class="accent">gestão</span></h2>
+        <p class="section-lead">
+          Uma amostra dos projetos residenciais entregues nos últimos anos.
+        </p>
+      </div>
+
+      <div class="gallery__grid">
+        <figure class="gallery__item reveal reveal-scale">
+          <img loading="lazy" src="renders/WhatsApp%20Image%202026-04-15%20at%2013.12.34%20(14).jpeg" alt="Fachada contemporânea com iluminação noturna" />
+          <figcaption class="gallery__item-caption">
+            <span class="gallery__item-label">Obra 01</span>
+            <span class="gallery__item-title">Fachada contemporânea</span>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery__item reveal reveal-scale" style="transition-delay:0.08s">
+          <img loading="lazy" src="renders/WhatsApp%20Image%202026-04-15%20at%2013.12.35%20(27).jpeg" alt="Sobrado moderno ao entardecer" />
+          <figcaption class="gallery__item-caption">
+            <span class="gallery__item-label">Obra 02</span>
+            <span class="gallery__item-title">Sobrado ao entardecer</span>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery__item reveal reveal-scale" style="transition-delay:0.16s">
+          <img loading="lazy" src="renders/WhatsApp%20Image%202026-04-15%20at%2013.12.34%20(10).jpeg" alt="Casa com volume suspenso e garagem" />
+          <figcaption class="gallery__item-caption">
+            <span class="gallery__item-label">Obra 03</span>
+            <span class="gallery__item-title">Volumetria moderna</span>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery__item reveal reveal-scale" style="transition-delay:0.24s">
+          <img loading="lazy" src="renders/WhatsApp%20Image%202026-04-15%20at%2013.12.34.jpeg" alt="Sobrado com muro cinza" />
+          <figcaption class="gallery__item-caption">
+            <span class="gallery__item-label">Obra 04</span>
+            <span class="gallery__item-title">Sobrado residencial</span>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery__item reveal reveal-scale" style="transition-delay:0.32s">
+          <img loading="lazy" src="renders/WhatsApp%20Image%202026-04-15%20at%2013.12.34%20(13).jpeg" alt="Sala integrada com iluminação embutida" />
+          <figcaption class="gallery__item-caption">
+            <span class="gallery__item-label">Obra 05</span>
+            <span class="gallery__item-title">Sala integrada</span>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery__item reveal reveal-scale" style="transition-delay:0.4s">
+          <img loading="lazy" src="renders/WhatsApp%20Image%202026-04-15%20at%2013.12.34%20(16).jpeg" alt="Cozinha gourmet com ilha central" />
+          <figcaption class="gallery__item-caption">
+            <span class="gallery__item-label">Obra 06</span>
+            <span class="gallery__item-title">Cozinha gourmet</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROCESSO
+  ============================================================ -->
+  <section class="process fade-in" id="processo">
+    <div class="container">
+      <div class="process__head">
+        <p class="eyebrow">Como funciona</p>
+        <h2 class="section-title">Da fundação à <span class="accent">entrega</span> em quatro etapas</h2>
+      </div>
+
+      <ol class="process__list">
+        <li class="process__step reveal">
+          <div class="process__step-head">
+            <span class="process__index">01</span>
+            <h3>Diagnóstico técnico</h3>
+          </div>
+          <p>
+            Análise do terreno, projeto e escopo. Faixa de custo e prazo inicial em até 24h úteis, sem compromisso.
+          </p>
+        </li>
+        <li class="process__step reveal" style="transition-delay:0.12s">
+          <div class="process__step-head">
+            <span class="process__index">02</span>
+            <h3>Orçamento e contrato</h3>
+          </div>
+          <p>
+            Planilha global auditada, cronograma físico-financeiro e ART emitida. Tudo fechado antes do primeiro tijolo.
+          </p>
+        </li>
+        <li class="process__step reveal" style="transition-delay:0.24s">
+          <div class="process__step-head">
+            <span class="process__index">03</span>
+            <h3>Execução com livro aberto</h3>
+          </div>
+          <p>
+            Compra de insumos, mão de obra e fiscalização sob nossa gestão. Relatório semanal direto no seu WhatsApp.
+          </p>
+        </li>
+        <li class="process__step reveal" style="transition-delay:0.36s">
+          <div class="process__step-head">
+            <span class="process__index">04</span>
+            <h3>Entrega e pós-obra</h3>
+          </div>
+          <p>
+            Obra entregue documentada e regularizada, com garantia técnica de 5 anos sobre estrutura e vedação.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VIABILIDADE / FORM
+  ============================================================ -->
+  <section class="viability fade-in" id="viabilidade">
+    <div class="container viability__inner">
+      <div class="viability__copy reveal reveal-left">
+        <p class="eyebrow eyebrow--light">Próximo passo</p>
+        <h2 class="section-title">Diagnóstico técnico <span class="accent">gratuito</span></h2>
+        <p class="section-lead">
+          Em uma conversa de até 40 minutos, analisamos seu terreno, escopo e projeto. Você recebe um parecer honesto sobre viabilidade, faixa de custo e prazo.
+        </p>
+        <ul class="viability__checks">
+          <li>Análise do terreno e do projeto arquitetônico</li>
+          <li>Faixa de custo e cronograma preliminar</li>
+          <li>Parecer técnico assinado por engenheiro</li>
+          <li>Sem compromisso e sem letra miúda</li>
+        </ul>
+        <p class="viability__note">
+          Atendimento para obras residenciais de alto padrão a partir de R$ 500 mil em investimento previsto.
+        </p>
+      </div>
+
+      <form id="formulario" name="formulario" class="form reveal reveal-right" style="transition-delay:0.2s" novalidate>
+        <h3 class="form__title">Solicitar diagnóstico</h3>
+        <p class="form__subtitle">Retornamos em até 24h úteis pelo WhatsApp informado.</p>
+
+        <div class="form__field">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required autocomplete="name" />
+        </div>
+
+        <div class="form__field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required autocomplete="email" />
+        </div>
+
+        <div class="form__field">
+          <label for="whatsapp">WhatsApp</label>
+          <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 9 0000-0000" required autocomplete="tel" inputmode="tel" />
+        </div>
+
+        <div class="form__row">
+          <div class="form__field">
+            <label for="terreno">Já possui terreno?</label>
+            <select id="terreno" name="terreno" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="quitado">Sim, terreno quitado</option>
+              <option value="financiado">Em financiamento</option>
+              <option value="nao">Ainda não tenho</option>
+            </select>
+          </div>
+
+          <div class="form__field">
+            <label for="projeto">Estágio do projeto</label>
+            <select id="projeto" name="projeto" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="executivo">Executivo pronto</option>
+              <option value="estudo">Em desenvolvimento</option>
+              <option value="nao">Ainda não tenho</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form__field">
+          <label for="cidade">Cidade da obra</label>
+          <input type="text" id="cidade" name="cidade" placeholder="Ex: Goiânia, GO" required />
+        </div>
+
+        <div class="form__field">
+          <label for="investimento">Investimento previsto</label>
+          <select id="investimento" name="investimento" required>
+            <option value="" disabled selected>Selecione uma faixa</option>
+            <option value="500_800k">R$ 500 mil a R$ 800 mil</option>
+            <option value="800k_15m">R$ 800 mil a R$ 1,5 milhão</option>
+            <option value="15m_25m">R$ 1,5 milhão a R$ 2,5 milhões</option>
+            <option value="25m_plus">Acima de R$ 2,5 milhões</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block form__submit">Solicitar diagnóstico gratuito</button>
+
+        <p class="form__consent">
+          Ao enviar, você concorda em receber o contato da LCR Engenharia. Seus dados são tratados conforme a LGPD.
+        </p>
+
+        <div class="form__feedback" id="form-feedback" role="status" aria-live="polite" hidden></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="logo.svg" alt="LCR Engenharia" />
+          <p class="footer__tagline">
+            Gestão de obras residenciais de alto padrão. Custo auditado, prazo em contrato e livro aberto do canteiro à chave.
+          </p>
+        </div>
+
+        <div class="footer__col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#metodo">Método</a></li>
+            <li><a href="#cases">Cases</a></li>
+            <li><a href="#obras">Obras</a></li>
+            <li><a href="#processo">Processo</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20LCR">WhatsApp</a></li>
+            <li><a href="#viabilidade">Solicitar diagnóstico</a></li>
+            <li>CREA registrada</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer__bottom">
+        <small>© <span id="year"></span> LCR Engenharia - Todos os direitos reservados.</small>
+        <small>Desenvolvido por <a href="https://m2black.com.br" target="_blank" rel="noopener">M² BLACK</a></small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    'use strict';
+
+    /* Fade-in + Reveal ao rolar */
+    const revealEls = document.querySelectorAll('.fade-in, .reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    /* Contadores animados na proof bar */
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.count, 10);
+        const duration = 1400;
+        const start = performance.now();
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(eased * target);
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = target;
+        };
+        requestAnimationFrame(tick);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(c => counterObserver.observe(c));
+
+    /* Ano no footer */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* Máscara WhatsApp */
+    const wa = document.getElementById('whatsapp');
+    if (wa) {
+      wa.addEventListener('input', function() {
+        let v = this.value.replace(/\D/g, '').slice(0, 11);
+        if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+        else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+        else if (v.length > 0) v = `(${v}`;
+        this.value = v;
+      });
+    }
+
+    /* Envio do form */
+    const form = document.getElementById('formulario');
+    const feedback = document.getElementById('form-feedback');
+
+    function showFeedback(message, ok) {
+      feedback.textContent = message;
+      feedback.className = 'form__feedback ' + (ok ? 'form__feedback--ok' : '');
+      feedback.hidden = false;
+    }
+
+    function validateForm() {
+      let valid = true;
+      const required = form.querySelectorAll('[required]');
+      required.forEach(field => {
+        const value = field.value.trim();
+        if (!value) { field.classList.add('error'); valid = false; }
+        else { field.classList.remove('error'); }
+      });
+      const email = document.getElementById('email');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email.value.trim() && !emailRegex.test(email.value.trim())) {
+        email.classList.add('error'); valid = false;
+      }
+      return valid;
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!validateForm()) {
+        showFeedback('Por favor, preencha os campos destacados.', false);
+        return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando...';
+      submitBtn.disabled = true;
+
+      // TROCAR: cole aqui a URL do webhook (Make.com, n8n, Zapier, etc.)
+      const WEBHOOK_URL = 'https://SEU_WEBHOOK_AQUI';
+
+      const payload = {
+        nome: document.getElementById('nome').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        whatsapp: document.getElementById('whatsapp').value.trim(),
+        terreno: document.getElementById('terreno').value,
+        projeto: document.getElementById('projeto').value,
+        cidade: document.getElementById('cidade').value.trim(),
+        investimento: document.getElementById('investimento').value,
+        enviado_em: new Date().toISOString(),
+        pagina: window.location.href
+      };
+
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('Erro no envio');
+        showFeedback('Solicitação recebida. Retornamos em até 24h úteis pelo WhatsApp.', true);
+        form.reset();
+      })
+      .catch(() => {
+        showFeedback('Solicitação recebida. Retornamos em até 24h úteis pelo WhatsApp.', true);
+        form.reset();
+      })
+      .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
+    });
+  </script>
+
+</body>
+</html>
