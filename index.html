@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TV4QWSNW');</script>
+  <!-- End Google Tag Manager -->
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0A0A0A" />
@@ -1232,6 +1240,10 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TV4QWSNW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <!-- ============================================================
        HERO
@@ -1864,19 +1876,40 @@
       submitBtn.textContent = 'Enviando...';
       submitBtn.disabled = true;
 
-      // TROCAR: cole aqui a URL do webhook (Make.com, n8n, Zapier, etc.)
-      const WEBHOOK_URL = 'https://SEU_WEBHOOK_AQUI';
+      const WEBHOOK_URL = 'https://m2black.atenderbem.com/webhookcapture/capture/5362bc0547e44085b31125ab1c8b4d64';
+
+      const getSelectText = (id) => {
+        const el = document.getElementById(id);
+        if (!el || el.selectedIndex < 0) return '';
+        const opt = el.options[el.selectedIndex];
+        return (opt && opt.value) ? opt.text.trim() : '';
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const utm = (k) => params.get(k) || '';
+
+      const agora = new Date();
+      const dataBR = agora.toLocaleDateString('pt-BR');
+      const horaBR = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 
       const payload = {
-        nome: document.getElementById('nome').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        whatsapp: document.getElementById('whatsapp').value.trim(),
-        terreno: document.getElementById('terreno').value,
-        projeto: document.getElementById('projeto').value,
+        Nome: document.getElementById('nome').value.trim(),
+        Email: document.getElementById('email').value.trim(),
+        WhatsApp: document.getElementById('whatsapp').value.trim(),
+        terreno: getSelectText('terreno'),
+        projeto: getSelectText('projeto'),
         cidade: document.getElementById('cidade').value.trim(),
-        investimento: document.getElementById('investimento').value,
-        enviado_em: new Date().toISOString(),
-        pagina: window.location.href
+        investimento: getSelectText('investimento'),
+        Nome_do_site: 'LCR Engenharia',
+        Nome_da_pagina: document.title,
+        URL_da_pagina: window.location.href,
+        Data: dataBR,
+        Horario: horaBR,
+        utm_source: utm('utm_source'),
+        utm_medium: utm('utm_medium'),
+        utm_campaign: utm('utm_campaign'),
+        utm_term: utm('utm_term'),
+        utm_content: utm('utm_content')
       };
 
       fetch(WEBHOOK_URL, {
